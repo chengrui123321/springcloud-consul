@@ -1,0 +1,23 @@
+# 端口
+server:
+  port: 9002
+
+# 应用名称
+spring:
+  application:
+    name: service-order
+
+  ##########配置Consul
+  cloud:
+    consul:
+      host: 127.0.0.1 # Consul Server请求地址
+      port: 8500 # Consul端口
+      discovery:
+        instance-id: ${spring.application.name}-1 # 实例ID
+        register: true # 是否注册到Consul
+        service-name: ${spring.application.name} # 服务名称
+        port: ${server.port} # 实例服务端口
+        health-check-path: /actuator/health # 健康检查路径
+        health-check-interval: 10s # 健康检查间隔时间
+        prefer-ip-address: true # 使用ip进行注册
+        ip-address: ${spring.cloud.client.ip-address} # ip地址
